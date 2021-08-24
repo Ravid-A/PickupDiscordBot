@@ -7,7 +7,9 @@ const fs = require('fs');
 
 var mysql = require('mysql');
 
-var FilePath = 'logs/console.log';
+var FilePath = "";
+
+var FileName = 'logs/Console';
 var DateOffset = 3; //לשנות לפי שעון חורף או שעון קיץ
 
 var con = mysql.createConnection({
@@ -154,10 +156,15 @@ function SendLog(message)
     var utcDate = currentData.getTime() + (currentData.getTimezoneOffset() * 60000);
     var israelDate = new Date(utcDate + (3600000 * DateOffset));
 	
-	var log = "L "+ israelDate.getMonth() + "/" + israelDate.getDate() + "/" + israelDate.getFullYear() + " - " + israelDate.getHours() + ":" + israelDate.getMinutes() + ":" + israelDate.getSeconds() + ": " + message;
+	var log = "L "+ israelDate.getMonth() + "/" + israelDate.getDate() + "/" + israelDate.getFullYear() + " - " + israelDate.getHours() + ":" + israelDate.getMinutes() + ":" + israelDate.getSeconds() + " : " + message;
 	
 	console.log(log);
 	
+	if (FilePath == "")
+	{
+		FilePath = FileName + "_" + israelDate.getFullYear() + israelDate.getMonth() + israelDate.getDate() + ".log";
+	} 
+
 	if(fs.existsSync(FilePath))
 	{
 		log = "\n"+log;
