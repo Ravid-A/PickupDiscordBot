@@ -45,7 +45,23 @@ bot.on("message", function(message)
 	if(message.channel == config.pickup_webhook_channel || message.channel == config.test_webhook_channel)
 	{
 		message.delete();
-		if(!message.author.bot)return;
+		if(!message.author.bot)
+		{
+			if(args[0] == "!sendinfo")
+			{
+				var author = message.author;
+				if(args.length < 5)
+				{
+					message.author.send(`${author}, Usage: !sendinfo <channel> <ip> <port> <password>`);
+					return;
+				}
+				var channel = message.mentions.channels.first();
+				SendInfoMessage(channel, args[2], args[3], args[4]);
+				author.send(`${author}, I sent the message to channel ${channel}`);
+				SendLog(`${author.tag} send info to channel "${channel.name}"`);
+			}
+			return;
+		}
 		const opretion = args[0];
 		switch(opretion)
 		{
@@ -171,3 +187,10 @@ function SendLog(message)
 	}
 	fs.appendFileSync(FilePath, log);
 }
+
+function SendInfoMessage(channel, ip, port, server_password)
+{
+	var message = `:IP לכניסה לשרת העתיקו את כתובת ה\n\`\`\`connect ${ip}:${port}; password ${server_password}\`\`\``;
+	message = message + `\n:לכניסה מהירה לשרת לחצו על הקישור למטה\nsteam://connect/${ip}:${port}/${server_password}\n \n**!!!כל השחקנים מחויבים לשחק עם משתמש פריים**`;
+	channel.send(message);
+} 
