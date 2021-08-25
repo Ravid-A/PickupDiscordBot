@@ -52,7 +52,7 @@ bot.on("message", function(message)
 				var author = message.author;
 				if(args.length < 5)
 				{
-					message.author.send(`${author}, Usage: !sendinfo <channel> <ip> <port> <password>`);
+					author.send(`Usage: !sendinfo <channel> <ip> <port> <password>\nExample: \`\`\`!sendinfo #game-report 185.185.134.236 10012 12\`\`\`\n||${author}||`);
 					return;
 				}
 				var channel = message.mentions.channels.first();
