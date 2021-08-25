@@ -52,11 +52,11 @@ bot.on("message", function(message)
 				var author = message.author;
 				if(args.length < 5)
 				{
-					author.send(`Usage: !sendinfo <channel> <ip> <port> <password>\nExample: \`\`\`!sendinfo #game-report 185.185.134.236 10012 12\`\`\`\n||${author}||`);
+					author.send(`Usage: !sendinfo <channel> <ip+port> <password>\nExample: \`\`\`!sendinfo #game-report 185.185.134.236:10012 12\`\`\`\n||${author}||`);
 					return;
 				}
 				var channel = message.mentions.channels.first();
-				SendInfoMessage(channel, args[2], args[3], args[4]);
+				SendInfoMessage(channel, args[2], args[3]);
 				author.send(`${author}, I sent the message to channel ${channel}`);
 				SendLog(`${author.tag} send info to channel "${channel.name}"`);
 			}
@@ -188,9 +188,9 @@ function SendLog(message)
 	fs.appendFileSync(FilePath, log);
 }
 
-function SendInfoMessage(channel, ip, port, server_password)
+function SendInfoMessage(channel, ip, server_password)
 {
-	var message = `:IP לכניסה לשרת העתיקו את כתובת ה\n\`\`\`connect ${ip}:${port}; password ${server_password}\`\`\``;
-	message = message + `\n:לכניסה מהירה לשרת לחצו על הקישור למטה\nsteam://connect/${ip}:${port}/${server_password}\n \n**!!!כל השחקנים מחויבים לשחק עם משתמש פריים**`;
+	var message = `:IP לכניסה לשרת העתיקו את כתובת ה\n\`\`\`connect ${ip}; password ${server_password}\`\`\``;
+	message = message + `\n:לכניסה מהירה לשרת לחצו על הקישור למטה\nsteam://connect/${ip}/${server_password}\n \n**!!!כל השחקנים מחויבים לשחק עם משתמש פריים**`;
 	channel.send(message);
 } 
