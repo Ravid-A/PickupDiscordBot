@@ -1,4 +1,5 @@
 @echo off
+title [Pickup Bot]
 goto start
 
 :start
@@ -9,4 +10,3 @@ node index.js
 
 echo Detected bot crash: %date%-%time% >> logs/error.log
 goto start
-a

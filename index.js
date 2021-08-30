@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const chalk = require('chalk');
+const figlet = require("figlet");
 const config = require("./config.json");
 
 const bot = new Discord.Client();
@@ -33,6 +35,8 @@ con.connect(function(err)
 });
 
 bot.on('ready', () => {
+	console.log(chalk.yellow.bold(figlet.textSync(bot.user.username)));
+    	console.log(chalk.red.bold(bot.user.tag) + chalk.blue.bold(" Is Ready"));
 	bot.user.setActivity('Play-IL PickUps', { type: 'LISTENING' });
 });
 
