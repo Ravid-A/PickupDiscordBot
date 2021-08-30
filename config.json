@@ -1,7 +1,6 @@
 {
     "BOT_TOKEN": "NzkzOTE0MjM1NDg2MDc2OTc4.X-zMPw.F164_0pQtBptsSKCydLOkn3h4JY",
     "pickup_webhook_channel": "878260744251146290",
-	"test_webhook_channel": "856886038332440606",
 	"BOT_TITLE": "Play-IL | CS:GO - Pickups Game Stats",
     "sql_host": "185.185.134.238",
     "sql_user": "csgo_pickups",

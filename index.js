@@ -40,24 +40,23 @@ bot.on('ready', () => {
 bot.on("message", function(message) 
 { 
 	if(message.channel.type === "dm")return;
-	var args = new Array();
-	args = message.content.split(' ');
-	if(message.channel == config.pickup_webhook_channel || message.channel == config.test_webhook_channel)
+	var args = message.content.split(' ');
+	if(message.channel == config.pickup_webhook_channel)
 	{
-		message.delete();
 		if(!message.author.bot)
 		{
 			if(args[0] == "!sendinfo")
 			{
 				var author = message.author;
-				if(args.length < 5)
+				var message_channel = message.channel;
+				if(args.length < 4)
 				{
-					author.send(`Usage: !sendinfo <channel> <ip+port> <password>\nExample: \`\`\`!sendinfo #game-report 185.185.134.236:10012 12\`\`\`\n||${author}||`);
+					message_channel.send(`Usage: !sendinfo <channel> <ip:port> <password>\nExample: \`\`\`!sendinfo #game-report 185.185.134.236:10012 12\`\`\`\n||${author}||`);
 					return;
 				}
 				var channel = message.mentions.channels.first();
 				SendInfoMessage(channel, args[2], args[3]);
-				author.send(`${author}, I sent the message to channel ${channel}`);
+				message_channel.send(`${author}, I sent the message to channel ${channel}`);
 				SendLog(`${author.tag} send info to channel "${channel.name}"`);
 			}
 			return;
@@ -89,8 +88,11 @@ bot.on("message", function(message)
 					return;
 				}
 				
-				const steamid = args[1];
-				const member = bot.users.cache.find(user => user.tag === args[2]);
+				args.shift();
+				const steamid = args[0];
+				args.shift();
+				
+				const member = bot.users.cache.find(user => user.tag === args.join(""));
 				
 				if(member == undefined)
 				{
