@@ -2,7 +2,7 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "discord.js": "^12.5.3",
-    "figlet": "^1.5.2",
+    "figlet": "^1.6.0",
     "fs": "^0.0.2",
     "mysql": "^2.18.1"
   }
